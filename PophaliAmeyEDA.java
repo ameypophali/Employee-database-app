@@ -4,39 +4,37 @@ import java.util.regex.Matcher;
 
 public class EDA {
 
-	public static final String YES = "yes";
-	public static final String NO = "no";
-	public static int EmpCount = 0;
-	public static Scanner scanner = new Scanner(System.in);
+	private static int EmpCount = 0;
+	private static Scanner scanner = new Scanner(System.in);
 
-	static Employee[] employee = new Employee[100];
+	private static Employee[] employee = new Employee[100];
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		for (;;) {
+		while(true) {
 
 			// Function call to print the menu for user
-			PrintMainMenu();
+			printMainMenu();
 
-			int j = scanner.nextInt();
+			int userInput= scanner.nextInt();
 
 			// Check for invalid inputs
-			if (j != 1 && j != 2 && j != 3 && j != 4 && j != 5) {
+			if (userInput!= 1 && userInput!= 2 && userInput!= 3 && userInput!= 4 && userInput!= 5) {
 				System.out
 						.println("Invalid input provided. Please press one of the following -");
-				PrintMainMenu();
-				j = scanner.nextInt();
+				printMainMenu();
+				userInput= scanner.nextInt();
 			}
 
 			// Terminate if still invalid
-			if (j != 1 && j != 2 && j != 3 && j != 4 && j != 5) {
+			if (userInput!= 1 && userInput!= 2 && userInput!= 3 && userInput!= 4 && userInput!= 5) {
 				System.out
 						.println("Wrong input attempts limit reached. Program terminating!!");
 			}
 
 			// Enter this only if user wants to ADD an employee
-			if (j == 1) {
+			if (userInput== 1) {
 
 				System.out
 						.println("Please select of the following options"
@@ -48,9 +46,9 @@ public class EDA {
 								+ "\n"
 								+ "- PRESS 4 to go BACK to the previous menu");
 
-				int h = scanner.nextInt();
+				int userInputAdd = scanner.nextInt();
 
-				if (h != 1 && h != 2 && h != 3 && h != 4) {
+				if (userInputAdd != 1 && userInputAdd != 2 && userInputAdd != 3 && userInputAdd != 4) {
 					System.out
 							.println("Wrong input. Please provide a valid input");
 
@@ -63,11 +61,11 @@ public class EDA {
 									+ "\n"
 									+ "- PRESS 3 to ADD all the parameters");
 
-					h = scanner.nextInt();
+					userInputAdd = scanner.nextInt();
 				}
 
 				// Check for invalid inputs and terminate
-				if (h != 1 && h != 2 && h != 3 && h != 4) {
+				if (userInputAdd != 1 && userInputAdd != 2 && userInputAdd != 3 && userInputAdd != 4) {
 					System.out
 							.println("Wrong input attempts limit reached. Program terminating!!");
 				}
@@ -77,10 +75,10 @@ public class EDA {
 
 				for (int i = 0; i < 100; i++) {
 
-					if (h == 1) {
+					if (userInputAdd == 1) {
 
 						// If user wants to add two parameters
-						if (CheckEmployeeEmpty(employee[i])) // Check if the
+						if (checkEmployeeEmpty(employee[i])) // Check if the
 																// employee
 																// object is
 																// empty.
@@ -107,9 +105,9 @@ public class EDA {
 					}
 
 					// If user wants to add three parameters
-					else if (h == 2) {
+					else if (userInputAdd == 2) {
 
-						if (CheckEmployeeEmpty(employee[i])) {
+						if (checkEmployeeEmpty(employee[i])) {
 
 							System.out
 									.println("Enter Last Name, Fisrt Name and Department seperated by space - ");
@@ -130,8 +128,8 @@ public class EDA {
 					}
 
 					// If user wants to add all parameters
-					else if (h == 3) {
-						if (CheckEmployeeEmpty(employee[i])) {
+					else if (userInputAdd == 3) {
+						if (checkEmployeeEmpty(employee[i])) {
 
 							System.out
 									.println("Enter employee's Last Name, First Name, Department and Job seperated by space - ");
@@ -152,7 +150,7 @@ public class EDA {
 						}
 
 						// If user wants to go out to the main menu
-						else if (h == 4)
+						else if (userInputAdd == 4)
 							break;
 					}
 				}
@@ -160,7 +158,7 @@ public class EDA {
 
 			// Call ModifyEmployee if the user inputs '2' i.e. a modification
 			// request
-			else if (j == 2) {
+			else if (userInput== 2) {
 				System.out.println("Please select one of the following options"
 						+ "\n" + "- PRESS 1 to Modify the First Name" + "\n"
 						+ "- PRESS 2 to Modify the Last Name" + "\n"
@@ -202,12 +200,12 @@ public class EDA {
 
 					for (int k = 0; k < 100; k++) {
 						if (employee[k] != null
-								&& employee[k].FirstName.equalsIgnoreCase(MV))//
+								&& employee[k].getFirstName().equalsIgnoreCase(MV))//
 						{
 							employee[k].setFirstName(RV);
 
-							PrintHeading();
-							PrintEmployee(k);
+							printHeading();
+							printEmployee(k);
 						}
 					}
 				}
@@ -217,11 +215,11 @@ public class EDA {
 
 					for (int k = 0; k < 100; k++) {
 						if (employee[k] != null
-								&& employee[k].LastName.equalsIgnoreCase(MV)) {
+								&& employee[k].getLastName().equalsIgnoreCase(MV)) {
 							employee[k].setLastName(RV);
 
-							PrintHeading();
-							PrintEmployee(k);
+							printHeading();
+							printEmployee(k);
 						}
 					}
 				}
@@ -230,11 +228,11 @@ public class EDA {
 
 					for (int k = 0; k < 100; k++) {
 						if (employee[k] != null
-								&& employee[k].Dep.equalsIgnoreCase(MV)) {
+								&& employee[k].getDep().equalsIgnoreCase(MV)) {
 							employee[k].setDep(RV);
 
-							PrintHeading();
-							PrintEmployee(k);
+							printHeading();
+							printEmployee(k);
 						}
 
 					}
@@ -245,18 +243,18 @@ public class EDA {
 
 					for (int k = 0; k < 100; k++) {
 						if (employee[k] != null
-								&& employee[k].Job.equalsIgnoreCase(MV)) {
+								&& employee[k].getJob().equalsIgnoreCase(MV)) {
 							employee[k].setJob(RV);
 
-							PrintHeading();
-							PrintEmployee(k);
+							printHeading();
+							printEmployee(k);
 						}
 					}
 				}
 			}
 
 			// if the user inputs '3' to find an employee
-			else if (j == 3) {
+			else if (userInput== 3) {
 
 				// The menu for Find
 				System.out.println("Please select one of the following options"
@@ -289,7 +287,7 @@ public class EDA {
 				}
 
 				// Display the heading for the fields
-				PrintHeading();
+				printHeading();
 
 				// The loop to find the employee. Break when found and go back
 				// to the main FOR Loop.
@@ -300,48 +298,48 @@ public class EDA {
 						switch (Input) {
 
 						case 1:
-							if (employee[k].FirstName != null) {
+							if (employee[k].getFirstName() != null) {
 								Pattern p = Pattern.compile(MV);
-								Matcher m = p.matcher(employee[k].FirstName); // get
+								Matcher m = p.matcher(employee[k].getFirstName()); // get
 																				// a
 																				// matcher
 																				// object
 
 								if (m.matches()) {
-									PrintEmployee(k);
+									printEmployee(k);
 									recordFound++;
 								}
 								break;
 							}
 						case 2:
-							if (employee[k].LastName != null) {
+							if (employee[k].getLastName() != null) {
 								Pattern p = Pattern.compile(MV);
-								Matcher m = p.matcher(employee[k].LastName);
+								Matcher m = p.matcher(employee[k].getLastName());
 
 								if (m.matches()) {
-									PrintEmployee(k);
+									printEmployee(k);
 									recordFound++;
 								}
 								break;
 							}
 						case 3:
-							if (employee[k].Dep != null) {
+							if (employee[k].getDep() != null) {
 								Pattern p = Pattern.compile(MV);
-								Matcher m = p.matcher(employee[k].Dep);
+								Matcher m = p.matcher(employee[k].getDep());
 
 								if (m.matches()) {
-									PrintEmployee(k);
+									printEmployee(k);
 									recordFound++;
 								}
 								break;
 							}
 						case 4:
-							if (employee[k].Job != null) {
+							if (employee[k].getJob() != null) {
 								Pattern p = Pattern.compile(MV);
-								Matcher m = p.matcher(employee[k].Job);
+								Matcher m = p.matcher(employee[k].getJob());
 
 								if (m.matches()) {
-									PrintEmployee(k);
+									printEmployee(k);
 									recordFound++;
 								}
 								break;
@@ -361,7 +359,7 @@ public class EDA {
 			}
 
 			// If the user inputs '4' to delete an employee
-			else if (j == 4) {
+			else if (userInput== 4) {
 
 				scanner.nextLine();
 				String Values1[] = new String[4];
@@ -376,7 +374,7 @@ public class EDA {
 				String DP = Values1[2];
 				String JB = Values1[3];
 
-				DeleteEmployee(LN, FN, DP, JB);
+				deleteEmployee(LN, FN, DP, JB);
 				EmpCount--;
 				System.out.println("Total employees in database = " + EmpCount
 						+ "\n");
@@ -384,7 +382,7 @@ public class EDA {
 			}
 
 			// If the user wants to EXIT the program
-			else if (j == 5)
+			else if (userInput== 5)
 				break;
 
 		} // Bracket close for infinite FOR Loop
@@ -393,38 +391,38 @@ public class EDA {
 
 	// Function to add a new employee to the array with First and Last Name as
 	// inputs
-	public static void addEmployee(String lname, String fname, int i) {
+	private static void addEmployee(String lname, String fname, int i) {
 
 		Employee e = new Employee(lname, fname);
 		employee[i] = e;
 
 		System.out.println("Employee Added -");
-		PrintEmployee(i);
+		printEmployee(i);
 	}
 
 	// Function to add an employee with three parameters
-	public static void addEmployee(String lname, String fname, String dept,
+	private static void addEmployee(String lname, String fname, String dept,
 			int i) {
 
 		Employee e = new Employee(lname, fname, dept);
 		employee[i] = e;
 
 		System.out.println("Employee Added -");
-		PrintEmployee(i);
+		printEmployee(i);
 	}
 
-	public static void addEmployee(String lname, String fname, String dept,
+	private static void addEmployee(String lname, String fname, String dept,
 			String jb, int i) {
 
 		Employee e = new Employee(lname, fname, dept, jb);
 		employee[i] = e;
 
 		System.out.println("Employee Added -");
-		PrintEmployee(i);
+		printEmployee(i);
 	}
 
 	// Check if element in array is empty. Returns true if empty
-	public static boolean CheckEmployeeEmpty(Employee e) {
+	private static boolean checkEmployeeEmpty(Employee e) {
 		if (e == null)
 			return true;
 
@@ -433,7 +431,7 @@ public class EDA {
 	}
 
 	// Deletes an employee element from array
-	public static void DeleteEmployee(String LN, String FN, String DP, String JB) {
+	private static void deleteEmployee(String LN, String FN, String DP, String JB) {
 		int recordDEL = 0;
 
 		System.out.println("Record deleted - ");
@@ -441,12 +439,14 @@ public class EDA {
 
 		for (int k = 0; k < 100; k++) {
 			if (employee[k] != null
-					&& employee[k].LastName.equalsIgnoreCase(LN)
-					&& employee[k].FirstName.equalsIgnoreCase(FN)
-					&& employee[k].Dep.equalsIgnoreCase(DP)
-					&& employee[k].Job.equalsIgnoreCase(JB)) {
-				PrintEmployee(k);
-				employee[k] = null;
+					&& employee[k].getLastName().equalsIgnoreCase(LN)
+					&& employee[k].getFirstName().equalsIgnoreCase(FN)
+					&& employee[k].getDep().equalsIgnoreCase(DP)
+					&& employee[k].getJob().equalsIgnoreCase(JB)) {
+				printEmployee(k);
+				employee[EmpCount-1] = employee[k];
+				employee[EmpCount-1] = null;
+				EmpCount--;
 				recordDEL++;
 			}
 		}
@@ -458,14 +458,14 @@ public class EDA {
 	}
 
 	/* Print functions */
-	public static void PrintEmployee(int i) {
+	private static void printEmployee(int i) {
 
 		System.out.println(employee[i].getLastName() + ","
 				+ employee[i].getFirstName() + "," + employee[i].getDep() + ","
 				+ employee[i].getJob());
 	}
 
-	public static void PrintMainMenu() {
+	public static void printMainMenu() {
 
 		System.out.println("Please select of the following options" + "\n"
 				+ "- PRESS 1 to ADD an employee" + "\n"
@@ -475,7 +475,7 @@ public class EDA {
 				+ "- PRESS 5 to EXIT");
 	}
 
-	public static void PrintHeading() {
+	public static void printHeading() {
 
 		System.out.println("Last Name" + "," + "First Name" + ","
 				+ "Department" + "," + "Job");
@@ -487,7 +487,7 @@ public class EDA {
 class Employee {
 
 	// Variables for employee
-	public String LastName, FirstName, Dep, Job;
+	private String LastName, FirstName, Dep, Job;
 
 	// Constructor with two parameters. Set "Unknown" if not passed
 	public Employee(String ln, String fn) {
